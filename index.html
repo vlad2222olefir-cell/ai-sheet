@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ИИ шпаргалка — промпты для учёбы</title>
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#5b3df5"><link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧠%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
 <style>
 :root{--bg:#f6f5ff;--card:#fff;--tx:#1b1b2f;--mut:#63637a;--ac:#5b3df5;--ac2:#ece8ff;--bd:#e4e1f5;--ok:#1f8a4c;--bad:#d63b3b;--g:linear-gradient(135deg,#5b3df5,#d946ef);color-scheme:light}
 :root[data-theme="dark"]{--bg:#14141f;--card:#1e1e2d;--tx:#f1f0fa;--mut:#a5a4bd;--ac:#a495ff;--ac2:#2b2748;--bd:#32304a;--ok:#5fd18a;--bad:#ff7b7b;color-scheme:dark}
@@ -93,12 +93,15 @@ label.ck{flex-direction:row;align-items:center;gap:10px;color:var(--tx);font-siz
 label.ck input{width:20px;height:20px;padding:0}
 .bar{height:10px;background:var(--ac2);border-radius:99px;overflow:hidden;margin:12px 0 8px}.bar i{display:block;height:100%;background:var(--g);transition:width .3s}
 .ava{overflow:hidden}.ava img{width:100%;height:100%;object-fit:cover}
+nav{cursor:auto;justify-content:flex-end}
+@media (max-width:480px){.nt,.lt{display:none}nav{justify-content:space-around}nav a{font-size:20px;padding:6px 12px}}
 </style>
 </head>
 <body>
 <header><div class="hw">
 <button class="mb" id="mb" aria-label="Меню"><i></i><i></i><i></i></button>
-<a class="logo" href="#home" style="text-decoration:none;font-size:18px">🧠 ИИ шпаргалка</a>
+<a class="logo" href="#home" style="text-decoration:none;font-size:18px">🧠<span class="lt"> ИИ шпаргалка</span></a>
+<nav id="nav"><a href="#home" data-p="home" title="Главная">🏠<span class="nt"> Главная</span></a><a href="#fav" data-p="fav" title="Избранное">⭐<span class="nt"> Избранное</span></a><a href="#faq" data-p="faq" title="Вопросы">❓<span class="nt"> Вопросы</span></a><a href="#about" data-p="about" title="О проекте">ℹ️<span class="nt"> О проекте</span></a></nav>
 </div></header>
 <div class="ov" id="ov"></div>
 <aside class="dr" id="dr"><div class="drh"><b>🧠 ИИ шпаргалка</b><button class="ib" id="drx" aria-label="Закрыть">✕</button></div><input type="search" id="gs" placeholder="🔍 Поиск по сайту" style="margin-bottom:8px"><div id="gsr"></div><div id="drl"></div><button class="dbtn" id="inst" style="display:none">📲 Установить как приложение</button><button class="dbtn" id="drth" style="margin-top:8px">🎨 Оформление</button></aside>
