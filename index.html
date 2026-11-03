@@ -59,12 +59,25 @@ summary{font-weight:600;cursor:pointer}details p{margin:8px 0 0;color:var(--mut)
 .ph .cp{background:var(--card)}
 h3.s{margin:24px 0 10px}
 footer{text-align:center;color:var(--mut);font-size:13px;padding:24px 16px}
+.fav{background:none;border:0;font-size:20px;cursor:pointer;padding:0 0 0 6px;color:var(--mut);vertical-align:middle}.fav.on{color:#f5a623}
+.school{background:var(--g);color:#fff;border-radius:22px;padding:28px 20px;text-align:center;margin-bottom:22px}
+.school b{display:block;font-size:24px;margin:4px 0}.school span{opacity:.9}
+.team{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.team .card{text-align:center}.team h3{margin:0}.team p{margin-top:2px}
+.ava{width:68px;height:68px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:800;margin:0 auto 10px}
+.fg{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+label{font-size:14px;color:var(--mut);display:flex;flex-direction:column;gap:4px}
+.fg input,.fg select,#exd{padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+label.ck{flex-direction:row;align-items:center;gap:10px;color:var(--tx);font-size:15px;margin:6px 0}
+label.ck input{width:20px;height:20px;padding:0}
+.bar{height:10px;background:var(--ac2);border-radius:99px;overflow:hidden;margin:12px 0 8px}.bar i{display:block;height:100%;background:var(--g);transition:width .3s}
+.ava{overflow:hidden}.ava img{width:100%;height:100%;object-fit:cover}
 </style>
 </head>
 <body>
 <header><nav>
 <span class="logo">🧠 ИИ шпаргалка</span>
-<a href="#home" data-p="home">Главная</a><a href="#prompts" data-p="prompts">Промпты</a><a href="#how" data-p="how">Как пользоваться</a><a href="#honesty" data-p="honesty">Честно</a><a href="#teachers" data-p="teachers">Учителям</a><a href="#faq" data-p="faq">Вопросы</a>
+<a href="#home" data-p="home">Главная</a><a href="#prompts" data-p="prompts">Промпты</a><a href="#fav" data-p="fav">⭐ Избранное</a><a href="#tools" data-p="tools">🛠 Конструктор</a><a href="#exam" data-p="exam">🎯 Экзамены</a><a href="#how" data-p="how">Как пользоваться</a><a href="#honesty" data-p="honesty">Честно</a><a href="#teachers" data-p="teachers">Учителям</a><a href="#faq" data-p="faq">Вопросы</a><a href="#about" data-p="about">О проекте</a>
 <button id="th" title="Тема">🌓</button>
 </nav></header>
 <main>
@@ -73,16 +86,18 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:24px 16px}
 <div class="hero">
 <h1>Учись с ИИ умнее: готовые промпты для школы</h1>
 <p>Скопируй, подставь свою тему и получи план сочинения, конспект, тест или понятное объяснение. ИИ здесь репетитор, а не списывалка.</p>
-<a class="btn" href="#prompts">Смотреть промпты</a><button class="btn o" id="rnd">🎲 Случайный промпт</button>
+<a class="btn" href="#prompts">Смотреть промпты</a>
 <div class="stats"><div><b id="n1">0</b><span>промптов</span></div><div><b id="n2">0</b><span>категорий</span></div><div><b>0 ₽</b><span>бесплатно</span></div></div>
 </div>
-<div id="rbox"></div>
+<h3 class="s">💡 Промпт дня</h3><div id="pod"></div>
 <h3 class="s">Что здесь есть</h3>
 <div class="grid" id="cats"></div>
 <div class="grid">
 <a class="card" href="#how"><span class="ico">🧭</span><h3>Как пользоваться</h3><p>Формула хорошего промпта и фразы-улучшалки.</p></a>
 <a class="card" href="#honesty"><span class="ico">🤝</span><h3>Учиться честно</h3><p>Как не списывать и проверять факты.</p></a>
 <a class="card" href="#teachers"><span class="ico">🍎</span><h3>Учителям и родителям</h3><p>Идеи заданий и правила безопасности.</p></a>
+<a class="card" href="#tools"><span class="ico">🛠</span><h3>Конструктор промптов</h3><p>Заполни поля и получи готовый промпт. Проверь свой промпт.</p></a>
+<a class="card" href="#exam"><span class="ico">🎯</span><h3>Подготовка к экзаменам</h3><p>Таймер до экзамена и планы на неделю, месяц, три месяца.</p></a>
 </div>
 </section>
 
@@ -93,6 +108,55 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:24px 16px}
 <div class="chips" id="chips"></div>
 <p class="sub" id="cnt"></p>
 <div class="pl" id="list"></div>
+</section>
+
+<section id="tools">
+<h2>🛠 Конструктор промптов</h2>
+<p class="sub">Заполни поля и получи готовый промпт. Скопируй его в чат с ИИ.</p>
+<div class="card" id="bld"><div class="fg">
+<label>Класс<select id="b1"><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option selected>10</option><option>11</option></select></label>
+<label>Предмет<input id="b2" placeholder="например, история"></label>
+<label>Тема<input id="b3" placeholder="например, реформы Петра I"></label>
+<label>Что нужно<select id="b4"><option>составить план</option><option>сделать краткий конспект</option><option>объяснить простыми словами</option><option>проверить моё решение</option><option>провести тест по теме</option><option>придумать идеи и примеры</option></select></label>
+<label>Формат ответа<select id="b5"><option>списком</option><option>таблицей</option><option>коротко, до 100 слов</option><option>подробно, с примерами</option></select></label>
+</div>
+<label class="ck"><input type="checkbox" id="b6" checked> Не давать готовый ответ, помогать подсказками</label>
+<pre id="bout"></pre><button class="cp" id="bcp">Копировать</button></div>
+<h2 style="margin-top:34px">✅ Хороший ли у тебя промпт?</h2>
+<p class="sub">Отметь, что есть в твоём промпте.</p>
+<div class="card">
+<label class="ck"><input type="checkbox" class="qz"> Указан класс или уровень</label>
+<label class="ck"><input type="checkbox" class="qz"> Указан предмет и конкретная тема</label>
+<label class="ck"><input type="checkbox" class="qz"> Понятно, что именно нужно (план, объяснение, тест)</label>
+<label class="ck"><input type="checkbox" class="qz"> Задан формат ответа (список, таблица, длина)</label>
+<label class="ck"><input type="checkbox" class="qz"> Есть ограничения («без готового текста», «коротко»)</label>
+<label class="ck"><input type="checkbox" class="qz"> Есть пример или исходный текст</label>
+<div class="bar"><i id="qbar" style="width:0"></i></div><b id="qres">Отметь пункты выше</b>
+</div>
+</section>
+
+<section id="exam">
+<h2>🎯 Подготовка к экзаменам</h2>
+<p class="sub">Выбери дату и следуй плану. Промпты скопируй в чат с ИИ.</p>
+<div class="card"><label>Дата экзамена<input type="date" id="exd"></label><p id="exleft" style="margin:10px 0 0;font-weight:700"></p></div>
+<h3 class="s">Планы по срокам</h3>
+<div class="grid">
+<div class="card"><h3>⏱ Одна неделя</h3><p>Только слабые места и практика.</p><pre>До экзамена неделя, предмет [предмет]. Составь план по дням: утром повторение слабых тем, днём практика заданий, вечером 20 минут разбора ошибок. Добавь время на отдых.</pre><button class="cp" data-t="До экзамена неделя, предмет [предмет]. Составь план по дням: утром повторение слабых тем, днём практика заданий, вечером 20 минут разбора ошибок. Добавь время на отдых.">Копировать</button></div>
+<div class="card"><h3>📅 Один месяц</h3><p>Теория, практика, пробники.</p><pre>До экзамена месяц, предмет [предмет], занимаюсь [часов] в неделю. Составь план на 4 недели: недели 1-2 теория по темам, неделя 3 практика, неделя 4 пробные варианты и работа над ошибками.</pre><button class="cp" data-t="До экзамена месяц, предмет [предмет], занимаюсь [часов] в неделю. Составь план на 4 недели: недели 1-2 теория по темам, неделя 3 практика, неделя 4 пробные варианты и работа над ошибками.">Копировать</button></div>
+<div class="card"><h3>🗓 Три месяца</h3><p>Спокойная подготовка с запасом.</p><pre>До экзамена 3 месяца, предмет [предмет]. Мой уровень: [уровень]. Составь план по месяцам: 1 месяц база, 2 месяц практика по типам заданий, 3 месяц пробные варианты. Раз в неделю повторение пройденного.</pre><button class="cp" data-t="До экзамена 3 месяца, предмет [предмет]. Мой уровень: [уровень]. Составь план по месяцам: 1 месяц база, 2 месяц практика по типам заданий, 3 месяц пробные варианты. Раз в неделю повторение пройденного.">Копировать</button></div>
+</div>
+<h3 class="s">Советы</h3>
+<div class="grid">
+<div class="card"><h3>😴 Сон и отдых</h3><p>Не отказывайся от сна ради зубрёжки: память работает ночью.</p></div>
+<div class="card"><h3>🔁 Повторяй</h3><p>Возвращайся к теме через день, неделю и месяц.</p></div>
+<div class="card"><h3>📝 Работа над ошибками</h3><p>Записывай ошибки и проси ИИ дать похожие задания.</p></div>
+</div>
+</section>
+
+<section id="fav">
+<h2>⭐ Избранное</h2>
+<p class="sub">Промпты, которые ты отметил звёздочкой. Они сохраняются на этом устройстве.</p>
+<div class="pl" id="flist"></div>
 </section>
 
 <section id="how">
@@ -108,6 +172,8 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:24px 16px}
 <div class="formula"><span>Кто ты</span><span>Что нужно</span><span>Тема</span><span>Формат</span><span>Ограничения</span></div>
 <div class="card bad">❌ «Напиши сочинение про Печорина».</div><br>
 <div class="card good">✅ «Я ученик 9 класса. Составь план сочинения «Печорин: герой или антигерой?»: вступление, 3 аргумента с цитатами, вывод. Только план, без готового текста».</div>
+<h3 class="s">Примеры: до и после</h3>
+<div id="ex"></div>
 <h3 class="s">Фразы-улучшалки (нажми, чтобы скопировать)</h3>
 <div class="ph" id="ph"></div>
 </section>
@@ -147,11 +213,26 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:24px 16px}
 <details><summary>Можно ли сдавать текст ИИ как свой?</summary><p>Нет. Используй ИИ как репетитора: для плана, объяснения и проверки.</p></details>
 <details><summary>Можно ли писать на русском?</summary><p>Да, современные ИИ хорошо понимают русский.</p></details>
 <details><summary>Это бесплатно?</summary><p>Сайт бесплатный. У чат-ботов есть бесплатные версии с ограничениями.</p></details>
-<p><a class="btn" style="background:var(--ac);color:#fff" href="mailto:?subject=Промпт для ИИ шпаргалки">✉️ Предложить свой промпт</a></p>
+<p><a class="btn sug" style="background:var(--ac);color:#fff" href="mailto:vlad2222olefir@gmail.com?subject=Промпт%20для%20ИИ%20шпаргалки">✉️ Предложить свой промпт</a></p>
 </section>
 
+<section id="about">
+<div class="school"><span id="logo" style="font-size:42px">🏫</span><b>МБОУ СОШ №20</b><span>10а класс · школьный проект</span></div>
+<h2>О проекте</h2>
+<p class="sub">«ИИ шпаргалка» создана школьниками для школьников, чтобы нейросети помогали учиться, а не заменяли учёбу.</p>
+<h3 class="s">Команда проекта</h3>
+<div class="team" id="team"></div>
+<h3 class="s">Отзывы</h3><div class="grid" id="rev"></div>
+<h3 class="s">QR-код сайта</h3><div class="card" style="text-align:center"><img id="qr" alt="QR-код сайта" width="180" height="180"><p>Наведи камеру телефона, чтобы открыть сайт. Можно распечатать для плаката.</p></div>
+<h3 class="s">Зачем мы это сделали</h3>
+<div class="grid">
+<div class="card"><span class="ico">🎯</span><h3>Цель</h3><p>Собрать понятные промпты, которые помогают разобраться в теме, а не списать.</p></div>
+<div class="card"><span class="ico">🤝</span><h3>Принцип</h3><p>ИИ как репетитор: план, объяснение, проверка. Думаешь ты сам.</p></div>
+<div class="card"><span class="ico">💌</span><h3>Присоединяйся</h3><p>Есть свой удачный промпт? Пришли, и мы добавим его на сайт.</p><br><a class="btn sug" style="background:var(--ac);color:#fff" href="mailto:vlad2222olefir@gmail.com?subject=Промпт%20для%20ИИ%20шпаргалки">Предложить промпт</a></div>
+</div>
+</section>
 </main>
-<footer>🧠 ИИ шпаргалка · проверяйте ответы ИИ по учебникам</footer>
+<footer>🧠 ИИ шпаргалка · проверяйте ответы ИИ по учебникам · 10а, МБОУ СОШ №20</footer>
 
 <script>
 var P=[
@@ -187,19 +268,45 @@ var P=[
 ["Проекты","План проекта","Составь план проекта «[тема]» на [срок]: цель, задачи, этапы, источники информации и как оформить результат."],
 ["Проекты","Структура презентации","Предложи структуру презентации на 8 слайдов по теме «[тема]»: заголовки и по 2 тезиса на слайд. Текст слайдов писать не нужно."],
 ["Организация","Расписание на неделю","Помоги составить расписание на неделю. Уроки: [список]. Контрольные: [даты]. Свободное время: [когда]. Учти перерывы и отдых."],
-["Организация","Не могу начать","Мне нужно выполнить [задание], но я не могу начать. Разбей его на 5 мини-шагов по 10 минут и подскажи, с чего начать прямо сейчас."]
+["Организация","Не могу начать","Мне нужно выполнить [задание], но я не могу начать. Разбей его на 5 мини-шагов по 10 минут и подскажи, с чего начать прямо сейчас."],
+["История","Хронология","Составь хронологию по теме «[тема]»: дата, событие и одно предложение о его значении. Не больше 12 пунктов."],
+["История","Причины и последствия","Разбери событие «[событие]»: причины (долгосрочные и ближайшие), ход, последствия. Оформи таблицей и добавь 3 вопроса для самопроверки."],
+["История","Исторический портрет","Расскажи о [личность] по плану: кто это, ключевые решения, оценки историков, значение. Укажи, где мнения расходятся."],
+["Биология","Процесс по шагам","Объясни процесс «[процесс]» по шагам, как схему текстом. Добавь, что чаще всего путают, и 3 вопроса для проверки."],
+["Биология","Глоссарий","Составь глоссарий по теме «[тема]» из 15 терминов: определение в одном предложении и пример."],
+["Физика и химия","Разбор формулы","Разбери формулу [формула]: что означает каждая величина, единицы, когда применять и пример расчёта с пояснениями."],
+["Физика и химия","Уравнять реакцию","Помоги разобраться с реакцией [реакция]: определи тип, подскажи шаги для расстановки коэффициентов. Готовый ответ не давай, проверь мой вариант."],
+["Физика и химия","Явление из жизни","Объясни, как физическое явление «[явление]» проявляется в обычной жизни. Приведи 3 примера и один простой опыт для дома."],
+["Обществознание","Примеры к понятию","Дай 5 разных примеров из жизни к понятию «[понятие]». Объясни, почему каждый пример подходит."],
+["Обществознание","План ответа","Составь план развёрнутого ответа по теме «[тема]» для [ЕГЭ/ОГЭ]: определение, признаки, функции, примеры. Только пункты, без текста."],
+["Литература","Анализ произведения","Помоги проанализировать «[произведение]»: проблематика, система образов, композиция, художественные приёмы. Это не пересказ, только структура и подсказки."],
+["Литература","Характеристика героя","Составь характеристику героя [имя] из «[произведение]»: черты, поступки, развитие, 3 цитаты-опоры. Цитаты отметь для проверки по тексту."],
+["География","Описание страны","Опиши [страна/регион] по плану: положение, рельеф, климат, население, хозяйство. Для каждого пункта 2-3 факта и вопрос для самопроверки."],
+["Информатика","Объясни код","Объясни, что делает этот код, построчно простыми словами: [код]. В конце спроси, что мне осталось непонятным."],
+["Информатика","Найди ошибку в коде","Вот мой код на [языке] и сообщение об ошибке: [код и ошибка]. Не пиши готовое решение: подскажи, где искать ошибку и почему она возникла."],
+["Информатика","Идея алгоритма","Вот задача: [условие]. Объясни идею алгоритма словами, без кода. Потом помоги мне записать решение самому."],
+["ОБЖ и технология","Ситуационная задача","Придумай 3 ситуационные задачи по теме «[тема]» (ОБЖ) с вариантами действий. После моего ответа объясни, какой вариант безопаснее и почему."],
+["ОБЖ и технология","План изделия","Помоги спланировать проект по технологии «[изделие]»: материалы, инструменты, этапы работы и меры безопасности."]
 ];
 var PH=["Объясни проще","Приведи пример","Сделай короче","Задай мне вопрос по теме","Не давай готовый ответ, дай подсказку","Укажи, в чём ты не уверен","Объясни, как для 10-летнего","Покажи ход рассуждений по шагам","Дай ещё один вариант","Теперь проверь меня"];
-var E={"Сочинения":"📝","Конспекты":"📚","Объяснения":"💡","Проверка":"✅","ОГЭ/ЕГЭ":"🎯","Языки":"🌍","Математика":"➗","Проекты":"🚀","Организация":"🗓"};
+var E={"Сочинения":"📝","Конспекты":"📚","Объяснения":"💡","Проверка":"✅","ОГЭ/ЕГЭ":"🎯","Языки":"🌍","Математика":"➗","Проекты":"🚀","Организация":"🗓","История":"🏛","Биология":"🧬","Физика и химия":"⚗️","Обществознание":"⚖️","Литература":"📖","География":"🗺","Информатика":"💻","ОБЖ и технология":"🛠"};
+var fav=[];try{fav=JSON.parse(localStorage.getItem("fav")||"[]")}catch(e){}
+var FORM_URL="";
+var METRIKA_ID=0;
+var LOGO="";
+var TEAM=[["Олефир Владислав","ОВ",""],["Мельник Артур","МА",""],["Комиссаров Александр","КА",""]];
+var REVIEWS=[];
 var cats=Object.keys(E),cur="Все",$=function(i){return document.getElementById(i)};
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-function card(p,i){return '<div class="card"><div class="row"><b>'+p[1]+'</b><span class="tag">'+p[0]+'</span></div><pre>'+esc(p[2])+'</pre><div><button class="cp" data-i="'+i+'">Копировать</button></div></div>'}
+function card(p,i){return '<div class="card"><div class="row"><b>'+p[1]+'</b><span><span class="tag">'+p[0]+'</span><button class="fav'+(fav.indexOf(p[1])>-1?' on':'')+'" data-f="'+i+'" title="В избранное">★</button></span></div><pre>'+esc(p[2])+'</pre><div><button class="cp" data-i="'+i+'">Копировать</button> <button class="cp" data-s="'+i+'">Поделиться</button></div></div>'}
 function render(){
  var q=$("q").value.toLowerCase(),h="",n=0;
- $("chips").innerHTML=["Все"].concat(cats).map(function(c){return '<button class="chip'+(c===cur?' on':'')+'" data-c="'+c+'">'+(E[c]||"✨")+" "+c+'</button>'}).join("");
- P.forEach(function(p,i){if((cur==="Все"||p[0]===cur)&&(p[1]+p[2]).toLowerCase().indexOf(q)>-1){h+=card(p,i);n++}});
- $("list").innerHTML=h||'<p class="sub">Ничего не найдено.</p>';
- $("cnt").textContent="Найдено: "+n;
+ $("chips").innerHTML=["Все"].concat(cats).map(function(c){return '<button class="chip'+(c===cur?' on':'')+'" data-c="'+c+'">'+(E[c]||(c==="Избранное"?"⭐":"✨"))+" "+c+'</button>'}).join("");
+ P.forEach(function(p,i){if((cur==="Все"||(cur==="Избранное"?fav.indexOf(p[1])>-1:p[0]===cur))&&(p[1]+p[2]).toLowerCase().indexOf(q)>-1){h+=card(p,i);n++}});
+ $("list").innerHTML=h||'<p class="sub">'+(cur==="Избранное"?"Нажми ★ на промпте, чтобы сохранить его здесь.":"Ничего не найдено.")+'</p>';
+ $("cnt").textContent="Найдено: "+n;pod();
+ var fh="";P.forEach(function(p,i){if(fav.indexOf(p[1])>-1)fh+=card(p,i)});
+ $("flist").innerHTML=fh||'<p class="sub">Пока пусто. Нажми ★ на любом промпте в <a href="#prompts" style="color:var(--ac)">библиотеке</a>, и он появится здесь.</p>';
 }
 function copy(t,b){
  var old=b.textContent;
@@ -210,19 +317,46 @@ function copy(t,b){
 document.addEventListener("click",function(e){
  var c=e.target.closest("[data-c]");if(c){cur=c.getAttribute("data-c");render()}
  var k=e.target.closest("[data-k]");if(k){cur=k.getAttribute("data-k");render()}
+ var f=e.target.closest("[data-f]");if(f){var nm=P[f.getAttribute("data-f")][1],x=fav.indexOf(nm);if(x>-1)fav.splice(x,1);else fav.push(nm);try{localStorage.setItem("fav",JSON.stringify(fav))}catch(er){}render()}
+ var sh=e.target.closest("[data-s]");if(sh){share(P[sh.getAttribute("data-s")],sh);return}
  var b=e.target.closest(".cp");if(b){var t=b.getAttribute("data-t");copy(t||P[b.getAttribute("data-i")][2],b)}
 });
 $("q").addEventListener("input",render);
-$("rnd").onclick=function(){var i=Math.floor(Math.random()*P.length);$("rbox").innerHTML=card(P[i],i)+"<br>"};
 $("th").onclick=function(){var d=document.documentElement,x=d.getAttribute("data-theme")==="dark"||(!d.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);d.setAttribute("data-theme",x?"light":"dark")};
+document.querySelectorAll(".sug").forEach(function(a){if(FORM_URL){a.href=FORM_URL;a.target="_blank"}});
 $("n1").textContent=P.length;$("n2").textContent=cats.length;
 $("cats").innerHTML=cats.map(function(c){var n=P.filter(function(p){return p[0]===c}).length;return '<a class="card" href="#prompts" data-k="'+c+'"><span class="ico">'+E[c]+'</span><h3>'+c+'</h3><p>'+n+' промптов</p></a>'}).join("");
 $("ph").innerHTML=PH.map(function(t){return '<button class="cp" data-t="'+t+'">'+t+'</button>'}).join("");
+function share(p,b){var u=location.href.split("#")[0],t=p[1]+"\n\n"+p[2]+"\n\nИИ шпаргалка: "+u;
+ if(navigator.share){navigator.share({title:p[1],text:t}).catch(function(){})}else copy(t,b)}
+function pod(){var i=Math.floor(Date.now()/864e5)%P.length;$("pod").innerHTML=card(P[i],i)}
+function bld(){var g=function(i){return $(i).value.trim()};
+ $("bout").textContent="Я ученик "+g("b1")+" класса."+(g("b2")?" Предмет: "+g("b2")+".":"")+(g("b3")?" Тема: «"+g("b3")+"».":"")+" Мне нужно: "+g("b4")+". Формат ответа: "+g("b5")+"."+($("b6").checked?" Не давай готовый ответ, помогай подсказками и вопросами.":"")+" Если не хватает информации, сначала задай мне уточняющий вопрос."}
+document.querySelectorAll("#bld input,#bld select").forEach(function(el){el.addEventListener("input",bld)});
+$("bcp").onclick=function(){copy($("bout").textContent,$("bcp"))};bld();
+function qz(){var n=document.querySelectorAll(".qz:checked").length;$("qbar").style.width=(n/6*100)+"%";
+ $("qres").textContent=n+" из 6: "+(n<3?"слабовато. Добавь класс, тему и формат ответа.":n<5?"неплохо. Добавь ограничения или пример.":"отлично, такой промпт даст точный ответ.")}
+document.querySelectorAll(".qz").forEach(function(c){c.addEventListener("change",qz)});
+var EX=[
+["Расскажи про Великую Отечественную войну","Длинный общий рассказ обо всей войне: сложно выбрать главное.","Я ученик 9 класса. Составь план ответа на 5 минут по теме «Начальный период войны, 1941 год»: 5 пунктов, по одному факту в каждом.","1. Нападение 22 июня. 2. Оборона Брестской крепости. 3. Смоленское сражение. 4. Битва за Москву. 5. Срыв плана быстрой войны."],
+["Реши уравнение x²−5x+6=0","Ответ: x=2 и x=3. Ты ничему не научился.","Я в 8 классе. Не давай ответ. Какой первый шаг в решении x²−5x+6=0? Подскажи и дождись моего ответа.","Какие два числа в сумме дают 5, а в произведении 6? Попробуй найти их и напиши мне."],
+["Исправь текст","Ответ переписывает весь текст, ты не видишь, где ошибся.","Исправь ошибки в моём тексте на английском (уровень B1) и объясни каждое правило одним предложением. Весь текст не переписывай.","Ошибка: «I am go» → «I go» или «I am going». После am нужна форма с -ing."]];
+$("ex").innerHTML=EX.map(function(x){return '<div class="grid"><div class="card bad"><b>❌ '+x[0]+'</b><p>ИИ: '+x[1]+'</p></div><div class="card good"><b>✅ '+x[2]+'</b><p>ИИ: '+x[3]+'</p></div></div>'}).join("");
+var xd="";try{xd=localStorage.getItem("exd")||""}catch(e){}
+function xl(){var v=$("exd").value;try{localStorage.setItem("exd",v)}catch(e){}
+ var d=v?Math.ceil((new Date(v)-new Date())/864e5):null;
+ $("exleft").textContent=d===null?"Выбери дату экзамена":d>0?"До экзамена: "+d+" дн.":d===0?"Экзамен сегодня. Удачи!":"Экзамен уже прошёл"}
+$("exd").value=xd;$("exd").oninput=xl;xl();
+$("team").innerHTML=TEAM.map(function(m){return '<div class="card"><div class="ava">'+(m[2]?'<img src="'+m[2]+'" alt="'+m[0]+'">':m[1])+'</div><h3>'+m[0]+'</h3><p>10а класс</p></div>'}).join("");
+if(LOGO)$("logo").innerHTML='<img src="'+LOGO+'" alt="Логотип" style="height:60px">';
+$("rev").innerHTML=REVIEWS.length?REVIEWS.map(function(v){return '<div class="card"><p>«'+v[0]+'»</p><br><b>— '+v[1]+'</b></div>'}).join(""):'<div class="card"><p>Отзывов пока нет. Будь первым: напиши нам, помог ли тебе сайт.</p><br><a class="btn sug" style="background:var(--ac);color:#fff" href="mailto:vlad2222olefir@gmail.com?subject=Отзыв%20об%20ИИ%20шпаргалке">Оставить отзыв</a></div>';
+if(METRIKA_ID){window.ym=window.ym||function(){(ym.a=ym.a||[]).push(arguments)};ym.l=+new Date();var ms=document.createElement("script");ms.async=1;ms.src="https://mc.yandex.ru/metrika/tag.js";ms.onload=function(){ym(METRIKA_ID,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,hash:true})};document.head.appendChild(ms)}
 function route(){
  var h=(location.hash||"#home").slice(1);if(!$(h))h="home";
  document.querySelectorAll("section").forEach(function(s){s.classList.toggle("on",s.id===h)});
  document.querySelectorAll("nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("data-p")===h)});
  window.scrollTo(0,0);
+ if(h==="about")$("qr").src="https://api.qrserver.com/v1/create-qr-code/?size=360x360&data="+encodeURIComponent(location.href.split("#")[0]);
 }
 window.addEventListener("hashchange",route);
 render();route();
