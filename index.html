@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ИИ шпаргалка — промпты для учёбы</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#5b3df5"><link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧠%3C/text%3E%3C/svg%3E">
 <style>
 :root{--bg:#f6f5ff;--card:#fff;--tx:#1b1b2f;--mut:#63637a;--ac:#5b3df5;--ac2:#ece8ff;--bd:#e4e1f5;--ok:#1f8a4c;--bad:#d63b3b;--g:linear-gradient(135deg,#5b3df5,#d946ef);color-scheme:light}
@@ -33,7 +34,11 @@ nav a.on{background:var(--ac2);color:var(--ac);font-weight:700}
 .wps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.wps button{border:2px solid var(--bd);border-radius:12px;height:66px;cursor:pointer;color:var(--tx);font:inherit;font-size:11px;font-weight:600;display:flex;align-items:flex-end;justify-content:center;padding:4px}.wps .on{border-color:var(--ac)}
 .fab{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;z-index:20}
 .fb{width:48px;height:48px;border-radius:50%;border:1px solid var(--bd);background:var(--card);box-shadow:0 4px 14px rgba(0,0,0,.2);font-size:22px;cursor:pointer}
-@media (max-width:560px){.lt{display:none}}
+.fg textarea{padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;resize:vertical}
+.toast{position:fixed;left:50%;top:calc(70px + env(safe-area-inset-top,0px));transform:translate(-50%,-20px);background:var(--card);border:1px solid var(--ac);color:var(--tx);padding:10px 16px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:.3s;z-index:60;text-align:center}.toast.on{opacity:1;transform:translate(-50%,0)}
+.bdg{text-align:center}.bdg.lock{opacity:.4;filter:grayscale(1)}.bdg .ico{font-size:38px}
+footer a{color:var(--ac);font-weight:700;text-decoration:none}
+@media print{header,.fab,.ov,.dr,.tp,footer,.noprint,.sub,.toast{display:none!important}body{background:#fff!important;color:#000!important}section{display:none!important}#print{display:block!important}#print .card{border:1px solid #999;background:#fff;color:#000}}
 main{max-width:1000px;margin:auto;padding:24px 16px 50px}
 section{display:none}section.on{display:block;animation:f .3s}
 @keyframes f{from{opacity:0;transform:translateY(6px)}}
@@ -83,7 +88,7 @@ footer{text-align:center;color:var(--mut);font-size:13px;padding:24px 16px}
 .ava{width:68px;height:68px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:800;margin:0 auto 10px}
 .fg{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 label{font-size:14px;color:var(--mut);display:flex;flex-direction:column;gap:4px}
-.fg input,.fg select,#exd{padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+.fg input,.fg select,.fg textarea,#exd{padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
 label.ck{flex-direction:row;align-items:center;gap:10px;color:var(--tx);font-size:15px;margin:6px 0}
 label.ck input{width:20px;height:20px;padding:0}
 .bar{height:10px;background:var(--ac2);border-radius:99px;overflow:hidden;margin:12px 0 8px}.bar i{display:block;height:100%;background:var(--g);transition:width .3s}
@@ -93,17 +98,17 @@ label.ck input{width:20px;height:20px;padding:0}
 <body>
 <header><div class="hw">
 <button class="mb" id="mb" aria-label="Меню"><i></i><i></i><i></i></button>
-<span class="logo">🧠<span class="lt"> ИИ шпаргалка</span></span>
-<nav id="nav"></nav>
+<a class="logo" href="#home" style="text-decoration:none;font-size:18px">🧠 ИИ шпаргалка</a>
 </div></header>
 <div class="ov" id="ov"></div>
-<aside class="dr" id="dr"><div class="drh"><b>🧠 ИИ шпаргалка</b><button class="ib" id="drx" aria-label="Закрыть">✕</button></div><div id="drl"></div><button class="dbtn" id="drth">🎨 Оформление</button></aside>
+<aside class="dr" id="dr"><div class="drh"><b>🧠 ИИ шпаргалка</b><button class="ib" id="drx" aria-label="Закрыть">✕</button></div><input type="search" id="gs" placeholder="🔍 Поиск по сайту" style="margin-bottom:8px"><div id="gsr"></div><div id="drl"></div><button class="dbtn" id="inst" style="display:none">📲 Установить как приложение</button><button class="dbtn" id="drth" style="margin-top:8px">🎨 Оформление</button></aside>
 <aside class="tp" id="tp"><div class="drh"><b>🎨 Оформление</b><button class="ib" id="tpx" aria-label="Закрыть">✕</button></div>
 <h4>Режим</h4><div class="seg" id="seg"></div>
 <h4>Цвет</h4><div class="sw" id="sw"></div>
 <h4>Обои</h4><div class="wps" id="wps"></div>
 <button class="dbtn" id="rst" style="width:100%;margin-top:16px">Сбросить оформление</button></aside>
 <div class="fab"><button class="fb" id="fq" title="Светлая или тёмная тема" aria-label="Светлая или тёмная тема">🌓</button><button class="fb" id="fp" title="Оформление" aria-label="Оформление">🎨</button></div>
+<div class="toast" id="toast"></div>
 <main>
 
 <section id="home">
@@ -146,6 +151,12 @@ label.ck input{width:20px;height:20px;padding:0}
 </div>
 <label class="ck"><input type="checkbox" id="b6" checked> Не давать готовый ответ, помогать подсказками</label>
 <pre id="bout"></pre><button class="cp" id="bcp">Копировать</button></div>
+<h2 style="margin-top:34px">🩺 Помощник по ошибкам</h2>
+<p class="sub">Вставь задание и свой ответ, получи промпт для разбора.</p>
+<div class="card"><div class="fg"><label>Задание<textarea id="e1" rows="3" placeholder="Условие или вопрос"></textarea></label><label>Мой ответ<textarea id="e2" rows="3" placeholder="Что у тебя получилось"></textarea></label></div><pre id="eout"></pre><button class="cp" id="ecp">Копировать</button></div>
+<h2 style="margin-top:34px">📝 Подготовь меня к контрольной</h2>
+<p class="sub">Четыре шага по порядку: объяснение, карточки, тест, работа над ошибками.</p>
+<div class="card"><div class="fg"><label>Предмет<input id="c1" placeholder="например, биология"></label><label>Тема контрольной<input id="c2" placeholder="например, клетка"></label></div><div id="cout"></div></div>
 <h2 style="margin-top:34px">✅ Хороший ли у тебя промпт?</h2>
 <p class="sub">Отметь, что есть в твоём промпте.</p>
 <div class="card">
@@ -157,6 +168,9 @@ label.ck input{width:20px;height:20px;padding:0}
 <label class="ck"><input type="checkbox" class="qz"> Есть пример или исходный текст</label>
 <div class="bar"><i id="qbar" style="width:0"></i></div><b id="qres">Отметь пункты выше</b>
 </div>
+<h2 style="margin-top:34px">🍅 Помодоро-таймер</h2>
+<p class="sub">25 минут работы, 5 минут отдыха.</p>
+<div class="card" style="text-align:center"><div id="pmode" style="color:var(--mut)">Работа</div><div id="pt" style="font-size:56px;font-weight:800">25:00</div><button class="cp" id="pgo">▶ Старт</button> <button class="cp" id="prs">↺ Сброс</button></div>
 </section>
 
 <section id="exam">
@@ -180,8 +194,24 @@ label.ck input{width:20px;height:20px;padding:0}
 <section id="fav">
 <h2>⭐ Избранное</h2>
 <p class="sub">Промпты, которые ты отметил звёздочкой. Они сохраняются на этом устройстве.</p>
+<p><button class="cp" id="fexp">⬇ Скачать избранное (.txt)</button></p>
 <div class="pl" id="flist"></div>
 </section>
+
+<section id="gloss"><h2>📖 Словарь терминов ИИ</h2><p class="sub">Короткие определения слов, которые встречаются рядом с нейросетями.</p><div class="grid" id="gl"></div></section>
+
+<section id="ach"><h2>🏆 Достижения</h2><p class="sub" id="achs"></p><div class="grid" id="bdg"></div></section>
+
+<section id="results"><h2>📊 Результаты</h2><p class="sub">Итоги опроса одноклассников и статистика сайта.</p><div id="sv"></div><h3 class="s">Статистика сайта</h3><div class="grid" id="st"></div></section>
+
+<section id="print"><h2>🖨 Версия для печати</h2><p class="sub">Шпаргалка на один лист с главными промптами.</p><button class="btn noprint" style="background:var(--ac);color:#fff" onclick="window.print()">🖨 Печать</button><div class="card" id="psheet" style="margin-top:14px"></div></section>
+
+<section id="making"><h2>🛠 Как мы делали проект</h2><p class="sub">Рассказываем честно, как создавался сайт.</p>
+<div class="card good"><span class="ico">🎨</span><h3>Оформление сайта</h3><p>ИИ помог нам создать оформление сайта: дизайн, цвета, тёмную тему, обои, меню и расположение блоков.</p></div>
+<div class="grid" style="margin-top:12px">
+<div class="card"><span class="ico">🤝</span><h3>Честно про ИИ</h3><p>Мы открыто говорим, что использовали ИИ, так же как призываем делать это на странице «Честно».</p></div>
+<div class="card"><span class="ico">🔍</span><h3>Проверка</h3><p>Ответам ИИ нельзя доверять без проверки. Это относится и к нашему сайту: сверяйтесь с учебником.</p></div>
+</div></section>
 
 <section id="how">
 <h2>Как пользоваться</h2>
@@ -236,6 +266,7 @@ label.ck input{width:20px;height:20px;padding:0}
 <details><summary>ИИ может ошибаться?</summary><p>Да, особенно в цитатах, датах, сложной математике и ссылках на источники.</p></details>
 <details><summary>Можно ли сдавать текст ИИ как свой?</summary><p>Нет. Используй ИИ как репетитора: для плана, объяснения и проверки.</p></details>
 <details><summary>Можно ли писать на русском?</summary><p>Да, современные ИИ хорошо понимают русский.</p></details>
+<details><summary>Как установить сайт как приложение?</summary><p>В Chrome нажмите «Установить как приложение» в меню сайта. В Safari на iPhone: «Поделиться» → «На экран Домой».</p></details>
 <details><summary>Это бесплатно?</summary><p>Сайт бесплатный. У чат-ботов есть бесплатные версии с ограничениями.</p></details>
 <p><a class="btn sug" style="background:var(--ac);color:#fff" href="mailto:vlad2222olefir@gmail.com?subject=Промпт%20для%20ИИ%20шпаргалки">✉️ Предложить свой промпт</a></p>
 </section>
@@ -256,7 +287,7 @@ label.ck input{width:20px;height:20px;padding:0}
 </div>
 </section>
 </main>
-<footer>🧠 ИИ шпаргалка · проверяйте ответы ИИ по учебникам · 10а, МБОУ СОШ №20</footer>
+<footer>🧠 ИИ шпаргалка · проверяйте ответы ИИ по учебникам · 10а, МБОУ СОШ №20<br><br><a href="#making">🛠 Как мы делали проект</a></footer>
 
 <script>
 var P=[
@@ -310,7 +341,46 @@ var P=[
 ["Информатика","Найди ошибку в коде","Вот мой код на [языке] и сообщение об ошибке: [код и ошибка]. Не пиши готовое решение: подскажи, где искать ошибку и почему она возникла."],
 ["Информатика","Идея алгоритма","Вот задача: [условие]. Объясни идею алгоритма словами, без кода. Потом помоги мне записать решение самому."],
 ["ОБЖ и технология","Ситуационная задача","Придумай 3 ситуационные задачи по теме «[тема]» (ОБЖ) с вариантами действий. После моего ответа объясни, какой вариант безопаснее и почему."],
-["ОБЖ и технология","План изделия","Помоги спланировать проект по технологии «[изделие]»: материалы, инструменты, этапы работы и меры безопасности."]
+["ОБЖ и технология","План изделия","Помоги спланировать проект по технологии «[изделие]»: материалы, инструменты, этапы работы и меры безопасности."],
+["Сочинения","Цитаты для сочинения","Подбери 5 цитат из произведений школьной программы к теме «[тема]». К каждой укажи автора, произведение и как использовать в аргументе. Напомни, что цитаты нужно сверить с книгой."],
+["Сочинения","Логика и связки","Вот мой абзац: [текст]. Покажи, где нарушена логика, и предложи слова-связки между мыслями. Текст не переписывай."],
+["Сочинения","Три вопроса к теме","Задай мне 3 вопроса, чтобы я лучше понял тему сочинения «[тема]» и сформулировал свою позицию."],
+["Конспекты","Запомнить даты","Помоги запомнить даты и события по теме «[тема]»: придумай ассоциации и короткие рифмы. Затем проверь меня."],
+["Конспекты","Главное за 5 минут","Что нужно знать по теме «[тема]», если у меня только 5 минут до урока? Дай 5 самых важных пунктов."],
+["Объяснения","Разбор моей ошибки","Я думал, что [моё понимание темы]. Скажи, верно ли это, и если нет, объясни, где ошибка в моём рассуждении."],
+["Объяснения","Пример из жизни","Приведи пример из жизни для понятия «[понятие]» и объясни, как он связан с определением."],
+["Объяснения","Два уровня","Объясни «[тема]» дважды: сначала в двух предложениях, потом подробно. Отметь, о чём чаще всего спрашивают на уроке."],
+["Проверка","Верно или неверно","Дай 8 утверждений по теме «[тема]»: часть верных, часть нет. Я отвечу «верно» или «неверно», а ты объяснишь каждый ответ."],
+["Проверка","Проверка по плану","Вот мой план ответа: [план]. Оцени, хватает ли в нём ключевых пунктов по теме «[тема]», и подскажи, что добавить."],
+["Проверка","Частые ошибки","Какие 5 самых частых ошибок делают школьники по теме «[тема]»? Для каждой дай пример и способ избежать."],
+["ОГЭ/ЕГЭ","Критерии оценки","Объясни критерии оценивания задания [номер] в [ОГЭ/ЕГЭ] по [предмету] простыми словами. Приведи пример ответа на 1 балл и на максимум."],
+["ОГЭ/ЕГЭ","Время на экзамене","Составь стратегию распределения времени на [ОГЭ/ЕГЭ] по [предмету]: сколько минут на каждую часть и что делать, если задание не получается."],
+["Языки","Объясни правило","Объясни правило [правило] на [языке] простыми словами. Дай 3 примера и 5 упражнений для тренировки, ответы не показывай."],
+["Языки","Диалог для урока","Составь диалог на [языке] по теме «[тема]», уровень [A2/B1]. Добавь список новых слов с переводом."],
+["Языки","Тест по словам","Проверь меня по этим словам: [список]. Давай по одному слову, исправляй ошибки и в конце подсчитай результат."],
+["Математика","Объясни теорему","Объясни теорему «[теорема]» простыми словами. Покажи идею доказательства и одну задачу, где она применяется."],
+["Математика","Проверь решение","Вот задача [условие] и моё решение: [решение]. Проверь каждый шаг, но своё решение не пиши. Отметь, где я мог ошибиться."],
+["Математика","Типы задач","Перечисли основные типы задач по теме «[тема]» и для каждого объясни общий алгоритм. Дай по одной задаче для тренировки."],
+["История","Сравни эпохи","Сравни [эпоха 1] и [эпоха 2] в таблице: власть, экономика, общество, культура. В конце дай одно главное отличие."],
+["История","Источник и вывод","Вот отрывок исторического источника: [текст]. Помоги определить автора, время и цель, а затем сделать вывод. Задавай наводящие вопросы."],
+["Биология","Таблица систем","Составь таблицу «[система или организм]»: строение, функции, примеры нарушений. Добавь 5 вопросов для проверки."],
+["Биология","Объясни схему","Опиши словами, что должно быть на схеме «[тема]», какие подписи важны и что чаще всего пропускают."],
+["Физика и химия","Задача по физике","Вот задача: [условие]. Помоги выбрать формулу и составить план решения. Расчёты я сделаю сам."],
+["Физика и химия","Единицы измерения","Объясни, как переводить единицы в теме «[тема]», и дай 6 задач на перевод, ответы покажи в конце."],
+["Физика и химия","Свойства веществ","Составь шпаргалку по веществу [вещество]: формула, свойства, получение, применение. Добавь способ запомнить."],
+["Обществознание","Разбор термина","Разбери термин «[термин]»: определение, признаки, виды, примеры и связь с другими понятиями курса."],
+["Обществознание","План мини-эссе","Составь план мини-эссе по высказыванию «[высказывание]»: смысл, аргументы из теории и из жизни. Сам текст не пиши."],
+["Литература","Сюжет и композиция","Составь план сюжета «[произведение]»: завязка, кульминация, развязка. Объясни, как эти части связаны с идеей."],
+["Литература","Тема и идея","Помоги определить тему, проблему и идею «[произведение]». Задай мне 3 вопроса для размышления, ответы не давай."],
+["География","Карта в голове","Помоги запомнить расположение [объектов] на карте: придумай ассоциации и порядок обхода. Потом проверь меня."],
+["Информатика","Тест по коду","Дай мне 5 коротких фрагментов кода на [языке] с вопросом «что выведет программа?». Ответы покажи после моих попыток."],
+["Информатика","Системы счисления","Объясни перевод из [системы 1] в [систему 2] по шагам. Дай 5 задач для тренировки без ответов."],
+["ОБЖ и технология","Правила безопасности","Составь памятку по безопасности при [ситуация или работа]: 7 правил простыми словами и 3 вопроса для самопроверки."],
+["Проекты","Источники для проекта","Подскажи, какие типы источников стоит искать для проекта «[тема]» и как проверить, что им можно доверять. Конкретные ссылки не придумывай."],
+["Проекты","Защита проекта","Задай мне 8 вопросов, которые могут задать на защите проекта «[тема]». После моих ответов оцени, что нужно доработать."],
+["Организация","Приоритеты","Вот мои задачи на неделю: [список]. Помоги расставить приоритеты по срочности и важности и предложи порядок выполнения."],
+["Организация","План на вечер","У меня [часов] на домашнее задание: [предметы]. Составь план с перерывами по 5-10 минут, от сложного к простому."],
+["Организация","Как запоминать","Подскажи 5 способов запоминания для предмета «[предмет]» и объясни, как применить каждый на теме «[тема]»."]
 ];
 var PH=["Объясни проще","Приведи пример","Сделай короче","Задай мне вопрос по теме","Не давай готовый ответ, дай подсказку","Укажи, в чём ты не уверен","Объясни, как для 10-летнего","Покажи ход рассуждений по шагам","Дай ещё один вариант","Теперь проверь меня"];
 var E={"Сочинения":"📝","Конспекты":"📚","Объяснения":"💡","Проверка":"✅","ОГЭ/ЕГЭ":"🎯","Языки":"🌍","Математика":"➗","Проекты":"🚀","Организация":"🗓","История":"🏛","Биология":"🧬","Физика и химия":"⚗️","Обществознание":"⚖️","Литература":"📖","География":"🗺","Информатика":"💻","ОБЖ и технология":"🛠"};
@@ -320,6 +390,8 @@ var METRIKA_ID=0;
 var LOGO="";
 var TEAM=[["Олефир Владислав","ОВ",""],["Мельник Артур","МА",""],["Комиссаров Александр","КА",""]];
 var REVIEWS=[];
+var SURVEY=[{q:"Используешь ли ты ИИ для учёбы?",a:[["Да, часто",0],["Иногда",0],["Нет",0]]},{q:"Для чего чаще всего?",a:[["Сочинения и тексты",0],["Объяснение тем",0],["Решение задач",0],["Проверка своих работ",0]]},{q:"Проверяешь ли ты ответы ИИ по учебнику?",a:[["Всегда",0],["Иногда",0],["Никогда",0]]}];
+var STATS=[];
 var cats=Object.keys(E),cur="Все",$=function(i){return document.getElementById(i)};
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function card(p,i){return '<div class="card"><div class="row"><b>'+p[1]+'</b><span><span class="tag">'+p[0]+'</span><button class="fav'+(fav.indexOf(p[1])>-1?' on':'')+'" data-f="'+i+'" title="В избранное">★</button></span></div><pre>'+esc(p[2])+'</pre><div><button class="cp" data-i="'+i+'">Копировать</button> <button class="cp" data-s="'+i+'">Поделиться</button></div></div>'}
@@ -334,14 +406,14 @@ function render(){
 }
 function copy(t,b){
  var old=b.textContent;
- function ok(){b.textContent="Скопировано ✓";b.classList.add("done");setTimeout(function(){b.textContent=old;b.classList.remove("done")},1400)}
+ function ok(){ach("copies");b.textContent="Скопировано ✓";b.classList.add("done");setTimeout(function(){b.textContent=old;b.classList.remove("done")},1400)}
  function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(a)}
  try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}
 }
 document.addEventListener("click",function(e){
  var c=e.target.closest("[data-c]");if(c){cur=c.getAttribute("data-c");render()}
  var k=e.target.closest("[data-k]");if(k){cur=k.getAttribute("data-k");render()}
- var f=e.target.closest("[data-f]");if(f){var nm=P[f.getAttribute("data-f")][1],x=fav.indexOf(nm);if(x>-1)fav.splice(x,1);else fav.push(nm);try{localStorage.setItem("fav",JSON.stringify(fav))}catch(er){}render()}
+ var f=e.target.closest("[data-f]");if(f){var nm=P[f.getAttribute("data-f")][1],x=fav.indexOf(nm);if(x>-1)fav.splice(x,1);else fav.push(nm);try{localStorage.setItem("fav",JSON.stringify(fav))}catch(er){}render();chk()}
  var sh=e.target.closest("[data-s]");if(sh){share(P[sh.getAttribute("data-s")],sh);return}
  var b=e.target.closest(".cp");if(b){var t=b.getAttribute("data-t");copy(t||P[b.getAttribute("data-i")][2],b)}
 });
@@ -356,8 +428,8 @@ function pod(){var i=Math.floor(Date.now()/864e5)%P.length;$("pod").innerHTML=ca
 function bld(){var g=function(i){return $(i).value.trim()};
  $("bout").textContent="Я ученик "+g("b1")+" класса."+(g("b2")?" Предмет: "+g("b2")+".":"")+(g("b3")?" Тема: «"+g("b3")+"».":"")+" Мне нужно: "+g("b4")+". Формат ответа: "+g("b5")+"."+($("b6").checked?" Не давай готовый ответ, помогай подсказками и вопросами.":"")+" Если не хватает информации, сначала задай мне уточняющий вопрос."}
 document.querySelectorAll("#bld input,#bld select").forEach(function(el){el.addEventListener("input",bld)});
-$("bcp").onclick=function(){copy($("bout").textContent,$("bcp"))};bld();
-function qz(){var n=document.querySelectorAll(".qz:checked").length;$("qbar").style.width=(n/6*100)+"%";
+$("bcp").onclick=function(){copy($("bout").textContent,$("bcp"));ach("builds")};bld();
+function qz(){var n=document.querySelectorAll(".qz:checked").length;$("qbar").style.width=(n/6*100)+"%";if(n===6)ach("perfect");
  $("qres").textContent=n+" из 6: "+(n<3?"слабовато. Добавь класс, тему и формат ответа.":n<5?"неплохо. Добавь ограничения или пример.":"отлично, такой промпт даст точный ответ.")}
 document.querySelectorAll(".qz").forEach(function(c){c.addEventListener("change",qz)});
 var EX=[
@@ -374,22 +446,13 @@ $("team").innerHTML=TEAM.map(function(m){return '<div class="card"><div class="a
 if(LOGO)$("logo").innerHTML='<img src="'+LOGO+'" alt="Логотип" style="height:60px">';
 $("rev").innerHTML=REVIEWS.length?REVIEWS.map(function(v){return '<div class="card"><p>«'+v[0]+'»</p><br><b>— '+v[1]+'</b></div>'}).join(""):'<div class="card"><p>Отзывов пока нет. Будь первым: напиши нам, помог ли тебе сайт.</p><br><a class="btn sug" style="background:var(--ac);color:#fff" href="mailto:vlad2222olefir@gmail.com?subject=Отзыв%20об%20ИИ%20шпаргалке">Оставить отзыв</a></div>';
 if(METRIKA_ID){window.ym=window.ym||function(){(ym.a=ym.a||[]).push(arguments)};ym.l=+new Date();var ms=document.createElement("script");ms.async=1;ms.src="https://mc.yandex.ru/metrika/tag.js";ms.onload=function(){ym(METRIKA_ID,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,hash:true})};document.head.appendChild(ms)}
-var NAV=[["home","🏠","Главная"],["prompts","💬","Промпты"],["fav","⭐","Избранное"],["tools","🛠","Конструктор"],["exam","🎯","Экзамены"],["how","🧭","Как пользоваться"],["honesty","🤝","Честно"],["teachers","🍎","Учителям"],["faq","❓","Вопросы"],["about","ℹ️","О проекте"]];
-$("nav").innerHTML=NAV.map(function(x){return '<a href="#'+x[0]+'" data-p="'+x[0]+'">'+x[1]+' '+x[2]+'</a>'}).join("");
+var NAV=[["home","🏠","Главная"],["prompts","💬","Промпты"],["fav","⭐","Избранное"],["tools","🛠","Инструменты"],["exam","🎯","Экзамены"],["gloss","📖","Словарь"],["ach","🏆","Достижения"],["results","📊","Результаты"],["print","🖨","Печать"],["how","🧭","Как пользоваться"],["honesty","🤝","Честно"],["teachers","🍎","Учителям"],["faq","❓","Вопросы"],["about","ℹ️","О проекте"]];
 $("drl").innerHTML=NAV.map(function(x){return '<a href="#'+x[0]+'" data-p="'+x[0]+'"><span>'+x[1]+'</span> '+x[2]+'</a>'}).join("");
 function closeAll(){["dr","tp","ov"].forEach(function(i){$(i).classList.remove("open")});document.body.style.overflow=""}
 function openP(id){closeAll();$(id).classList.add("open");$("ov").classList.add("open");document.body.style.overflow="hidden"}
 $("mb").onclick=function(){openP("dr")};$("fp").onclick=function(){openP("tp")};$("drth").onclick=function(){openP("tp")};
 $("drx").onclick=$("tpx").onclick=$("ov").onclick=closeAll;$("drl").addEventListener("click",closeAll);
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll()});
-(function(){var n=$("nav"),d=false,mv=false,sx=0,sl=0;
- n.addEventListener("pointerdown",function(e){if(e.pointerType!=="mouse")return;d=true;mv=false;sx=e.clientX;sl=n.scrollLeft});
- window.addEventListener("pointermove",function(e){if(!d)return;var dx=e.clientX-sx;if(Math.abs(dx)>4){mv=true;n.classList.add("drag")}n.scrollLeft=sl-dx});
- window.addEventListener("pointerup",function(){d=false;n.classList.remove("drag")});
- n.addEventListener("click",function(e){if(mv){e.preventDefault();e.stopPropagation();mv=false}},true);
- n.addEventListener("dragstart",function(e){e.preventDefault()});
- n.addEventListener("wheel",function(e){if(Math.abs(e.deltaY)>Math.abs(e.deltaX)&&n.scrollWidth>n.clientWidth){n.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
-})();
 var ACC=[["Фиолет",255,300],["Синий",215,190],["Бирюза",175,145],["Зелёный",140,95],["Оранжевый",22,45],["Красный",355,20],["Розовый",325,285]];
 var wv=encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="80" height="40"><path d="M0 20Q20 0 40 20T80 20" fill="none" stroke="#888" stroke-opacity=".3" stroke-width="2"/></svg>');
 var WP=[["Без обоев","linear-gradient(transparent,transparent)"],["Закат","linear-gradient(160deg,rgba(255,122,89,.3),rgba(255,201,87,.18) 50%,rgba(217,70,239,.25))"],["Океан","linear-gradient(160deg,rgba(14,165,233,.3),rgba(20,184,166,.2) 55%,rgba(99,102,241,.25))"],["Лес","linear-gradient(160deg,rgba(34,197,94,.28),rgba(132,204,22,.16) 55%,rgba(20,184,166,.22))"],["Конфетти","linear-gradient(160deg,rgba(244,114,182,.3),rgba(167,139,250,.22) 55%,rgba(96,165,250,.22))"],["Точки","radial-gradient(rgba(127,127,127,.3) 1.6px,transparent 1.7px) 0 0/22px 22px"],["Клетка","linear-gradient(rgba(127,127,127,.15) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(127,127,127,.15) 1px,transparent 1px) 0 0/28px 28px"],["Волны","url(data:image/svg+xml,"+wv+") 0 0/80px 40px"]];
@@ -415,11 +478,44 @@ $("rst").onclick=function(){TH={m:"auto",a:0,w:0};apply()};
 $("fq").onclick=function(){TH.m=dk()?"light":"dark";apply()};
 matchMedia("(prefers-color-scheme:dark)").addEventListener("change",function(){if(TH.m==="auto")apply()});
 apply();
+var GL=[["Промпт","Запрос к ИИ: текст, по которому нейросеть понимает, что нужно сделать."],["Нейросеть","Компьютерная модель, которая учится на больших объёмах данных находить закономерности."],["Языковая модель","Нейросеть, которая работает с текстом: объясняет, продолжает и пишет ответы."],["Чат-бот","Программа, с которой общаются в формате переписки."],["Галлюцинация","Когда ИИ уверенно выдаёт неверную информацию, например несуществующую цитату."],["Токен","Небольшая часть текста (слово или его кусок), на которые ИИ разбивает запрос."],["Контекст","Всё, что ИИ учитывает в текущем диалоге: твои сообщения и его ответы."],["Данные для обучения","Тексты и другая информация, на которых нейросеть училась."],["Предвзятость","Перекос в ответах ИИ из-за перекосов в данных, на которых он учился."],["Плагиат","Выдача чужой работы или текста ИИ за свою без указания источника."],["Дипфейк","Поддельное фото, видео или голос, созданные нейросетью."],["Алгоритм","Последовательность шагов для решения задачи."],["Персональные данные","Информация о человеке: имя, адрес, телефон. Не вводи их в чат с ИИ."]];
+$("gl").innerHTML=GL.map(function(g){return '<div class="card"><h3>'+g[0]+'</h3><p>'+g[1]+'</p></div>'}).join("");
+var AC={};try{AC=JSON.parse(localStorage.getItem("ac")||"{}")}catch(e){}
+var BADGES=[["🥇","Первый шаг","Скопируй первый промпт",function(){return AC.copies>=1}],["📋","Копировальщик","Скопируй промпты 10 раз",function(){return AC.copies>=10}],["⭐","Коллекционер","Добавь 5 промптов в избранное",function(){return fav.length>=5}],["🛠","Конструктор","Скопируй промпт из конструктора",function(){return AC.builds>=1}],["✅","Отличный промпт","Набери 6 из 6 в тесте",function(){return AC.perfect>=1}],["🍅","Помидорка","Закончи один рабочий отрезок в таймере",function(){return AC.pomo>=1}],["🧭","Исследователь","Открой 8 разделов сайта",function(){return (AC.vis||[]).length>=8}]];
+function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove("on")},2600)}
+function bdg(){var g=AC.got||[];$("achs").textContent="Получено: "+g.length+" из "+BADGES.length;$("bdg").innerHTML=BADGES.map(function(b){return '<div class="card bdg'+(g.indexOf(b[1])<0?' lock':'')+'"><span class="ico">'+b[0]+'</span><h3>'+b[1]+'</h3><p>'+b[2]+'</p></div>'}).join("")}
+function chk(){AC.got=AC.got||[];BADGES.forEach(function(b){if(b[3]()&&AC.got.indexOf(b[1])<0){AC.got.push(b[1]);toast("🏆 Достижение: "+b[1])}});try{localStorage.setItem("ac",JSON.stringify(AC))}catch(e){}bdg()}
+function ach(k){AC[k]=(AC[k]||0)+1;chk()}
+function ea(t){return esc(t).replace(/"/g,"&quot;")}
+function eh(){var a=$("e1").value.trim()||"[задание]",b=$("e2").value.trim()||"[мой ответ]";$("eout").textContent="Вот задание: "+a+"\n\nВот мой ответ: "+b+"\n\nНайди ошибки и объясни каждую. Не давай готовый правильный ответ: подскажи, как исправить самому. В конце назови тему, которую мне стоит повторить."}
+["e1","e2"].forEach(function(i){$(i).addEventListener("input",eh)});$("ecp").onclick=function(){copy($("eout").textContent,$("ecp"))};eh();
+function prep(){var s=$("c1").value.trim()||"[предмет]",t=$("c2").value.trim()||"[тема]";
+ var st=[["Объяснение","Объясни простыми словами тему «"+t+"» по предмету «"+s+"». Выдели главное и приведи пример. В конце задай мне вопрос."],["Карточки","Составь 10 карточек «вопрос — ответ» по теме «"+t+"» ("+s+"). Сначала покажи только вопросы."],["Тест","Проведи со мной тест из 8 вопросов по теме «"+t+"» ("+s+"): по одному вопросу, после ответа объясняй ошибку."],["Работа над ошибками","Вот вопросы, в которых я ошибся: [список]. Составь короткий план повторения на 2 дня."]];
+ $("cout").innerHTML=st.map(function(x,i){return '<div class="card" style="margin-top:10px"><b>Шаг '+(i+1)+'. '+x[0]+'</b><pre>'+esc(x[1])+'</pre><button class="cp" data-t="'+ea(x[1])+'">Копировать</button></div>'}).join("")}
+["c1","c2"].forEach(function(i){$(i).addEventListener("input",prep)});prep();
+var pm={t:1500,m:0,id:0};
+function pd(){$("pt").textContent=("0"+Math.floor(pm.t/60)).slice(-2)+":"+("0"+pm.t%60).slice(-2);$("pmode").textContent=pm.m?"Отдых":"Работа"}
+$("pgo").onclick=function(){if(pm.id){clearInterval(pm.id);pm.id=0;this.textContent="▶ Старт";return}this.textContent="⏸ Пауза";pm.id=setInterval(function(){pm.t--;if(pm.t<=0){if(!pm.m)ach("pomo");pm.m=1-pm.m;pm.t=pm.m?300:1500;toast(pm.m?"🍅 Время отдыха!":"💪 Снова за работу!")}pd()},1000)};
+$("prs").onclick=function(){clearInterval(pm.id);pm={t:1500,m:0,id:0};$("pgo").textContent="▶ Старт";pd()};pd();
+$("fexp").onclick=function(){var t=P.filter(function(p){return fav.indexOf(p[1])>-1}).map(function(p){return p[1]+" ("+p[0]+")\n"+p[2]}).join("\n\n---\n\n")||"Избранное пусто";var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/plain;charset=utf-8"}));a.download="izbrannoe.txt";document.body.appendChild(a);a.click();a.remove()};
+$("sv").innerHTML=SURVEY.map(function(q){var t=q.a.reduce(function(x,y){return x+y[1]},0);return '<div class="card" style="margin-bottom:12px"><b>'+q.q+'</b>'+(t?q.a.map(function(o){var p=Math.round(o[1]/t*100);return '<div style="margin-top:10px"><div class="row"><span>'+o[0]+'</span><b>'+p+'% ('+o[1]+')</b></div><div class="bar"><i style="width:'+p+'%"></i></div></div>'}).join(""):'<p>Данных пока нет: они появятся после опроса.</p>')+'</div>'}).join("");
+$("st").innerHTML=STATS.length?STATS.map(function(x){return '<div class="card"><span class="ico">📈</span><h3>'+x[1]+'</h3><p>'+x[0]+'</p></div>'}).join(""):'<div class="card"><p>Здесь появятся данные о посещениях после подключения счётчика.</p></div>';
+var PK=["План сочинения","Короткий конспект","Объясни просто","Тест из 10 вопросов","Задача с подсказками","Найди мои ошибки","План подготовки","Разбор задания"];
+$("psheet").innerHTML='<h3 style="margin-top:0">🧠 ИИ шпаргалка: главные промпты</h3>'+P.filter(function(p){return PK.indexOf(p[1])>-1}).map(function(p){return '<p><b>'+p[1]+'</b><br>'+esc(p[2])+'</p>'}).join("");
+$("gs").addEventListener("input",function(){var q=this.value.trim().toLowerCase(),h="";if(q.length>1){
+ NAV.forEach(function(x){if(x[2].toLowerCase().indexOf(q)>-1)h+='<a href="#'+x[0]+'">'+x[1]+' '+x[2]+'</a>'});
+ var k=0;P.forEach(function(p,i){if(k<6&&(p[1]+p[2]).toLowerCase().indexOf(q)>-1){k++;h+='<a href="#prompts" data-pq="'+i+'">💬 '+p[1]+'</a>'}});
+ GL.forEach(function(g){if((g[0]+g[1]).toLowerCase().indexOf(q)>-1)h+='<a href="#gloss">📖 '+g[0]+'</a>'})}
+ $("gsr").innerHTML=h||(q.length>1?'<p class="sub" style="padding:0 12px">Ничего не найдено</p>':"")});
+$("gsr").addEventListener("click",function(e){var a=e.target.closest("[data-pq]");if(a){$("q").value=P[a.getAttribute("data-pq")][1];cur="Все";render()}closeAll()});
+var dp=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;$("inst").style.display="block"});
+$("inst").onclick=function(){if(dp){dp.prompt();dp=null;$("inst").style.display="none"}};
+if("serviceWorker" in navigator&&location.protocol.indexOf("http")===0)navigator.serviceWorker.register("sw.js").catch(function(){});
 function route(){
  var h=(location.hash||"#home").slice(1);if(!$(h))h="home";
  document.querySelectorAll("section").forEach(function(s){s.classList.toggle("on",s.id===h)});
  document.querySelectorAll("a[data-p]").forEach(function(a){a.classList.toggle("on",a.getAttribute("data-p")===h)});
- window.scrollTo(0,0);closeAll();var on=document.querySelector("#nav a.on");if(on)$("nav").scrollLeft=on.offsetLeft-$("nav").clientWidth/2+on.clientWidth/2;
+ window.scrollTo(0,0);closeAll();AC.vis=AC.vis||[];if(AC.vis.indexOf(h)<0){AC.vis.push(h);chk()}
  if(h==="about")$("qr").src="https://api.qrserver.com/v1/create-qr-code/?size=360x360&data="+encodeURIComponent(location.href.split("#")[0]);
 }
 window.addEventListener("hashchange",route);
